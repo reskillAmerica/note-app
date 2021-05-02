@@ -11,15 +11,30 @@
             <br>
             <button id="submit" onclick="saveNote()" class="submit">Save Note</button>
         <div class="notes-link">
-            <a href="index2.html" >View Notes</a>
+            <a href="index2.html" onclick="viewStringFromLocalStorage()" >View Notes</a>
         </div> 
     </div>
 </body>
 
 <script>
-var textElement = document.getElementById("note")
-
-function saveNote() {
+    let textElement = document.getElementById("note");
     
+    
+    function saveNote() {
+        let text = textElement;
+        if(text.value === ""){
+            return alert("Empty")
+        }
+        const id = getNoteId();
+        let noteObject = getExistingNotes()
+
+        // console.log('from save',id)
+        if(!noteObject){
+            noteObject = {}
+        }
+        noteObject[id] = text.value;
+        // console.log('value',text.value)
+   localStorage.setItem('notes', JSON.stringify(noteObject))
+   alert("Note saved")
 }
 </script>
